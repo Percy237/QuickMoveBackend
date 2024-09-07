@@ -9,7 +9,7 @@ export type UserType = {
     lastName: string;
     phoneNumber: string;
     address: string;
-    userType: string;
+     role: "customer" | "mover" | "admin";
 }
 
 const userSchema = new mongoose.Schema({
@@ -19,7 +19,13 @@ const userSchema = new mongoose.Schema({
     lastName: {type: String, required: true},
     phoneNumber: {type: String, required: true},
     address: {type: String, required: true},
-    userType: { type: String, required: true, default: "customer" },
+    role: { 
+        type: String, 
+        required: true, 
+        enum: ["customer", "mover", "admin"], 
+        default: "customer" 
+    },
+
 })
 
 userSchema.pre("save", async function (next) {
